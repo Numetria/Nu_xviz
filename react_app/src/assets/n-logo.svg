@@ -1,0 +1,24 @@
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Stylized letter N inspired by Hack font characteristics -->
+  <path 
+    d="M50 150 
+       L50 50 
+       L150 150 
+       L150 50" 
+    stroke="#000000" 
+    stroke-width="16" 
+    stroke-linecap="square" 
+    fill="none"
+  />
+  
+  <!-- Diagonal line with square caps to match Hack's geometric style -->
+  <line 
+    x1="50" 
+    y1="50" 
+    x2="150" 
+    y2="150" 
+    stroke="#000000" 
+    stroke-width="16" 
+    stroke-linecap="square"
+  />
+</svg>
