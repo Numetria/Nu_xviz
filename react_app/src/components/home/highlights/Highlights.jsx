@@ -7,6 +7,8 @@ import { IoMoonOutline } from "react-icons/io5";
 import { useAppContext } from "../../../context/AppContext";
 import axios from 'axios';
 import LoadDataButton from "../../buttons/Button1"
+import FileUpload  from "../../fileIO/upload";
+
 
 
 function Highlights() {
@@ -46,7 +48,7 @@ function Highlights() {
           <div className={styles.box}>
             <h3>Xarray read</h3>
             <div className={styles.bottom}>
-              <> <LoadDataButton/> </>
+              <> <FileUpload/> </>
               <p>
                 {formatTime(
                   currentWeatherData?.sys.sunrise,
