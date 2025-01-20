@@ -17,7 +17,7 @@
 }
 
 .currentWeather .card .wrapper span {
-  font-size: 55px;
+  font-size: 12px;
   color: var(--main-text-color);
 }
 

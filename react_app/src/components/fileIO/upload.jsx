@@ -41,7 +41,6 @@ const FileUpload = () => {
 
   return (
     <div>
-      <h1>Upload File Path</h1>
       <input
         type="text"
         placeholder="Enter file path or filename"
@@ -63,6 +62,7 @@ const FileUpload = () => {
             <li><strong>Time Range:</strong> {fileDetails.time_range}</li>
             <li><strong>Coordinates:</strong> {fileDetails.coordinates.join(', ')}</li>
             <li><strong>Variables:</strong> {fileDetails.variables.join(', ')}</li>
+            <li><strong>Spatial:</strong> {fileDetails.spatial}</li>
           </ul>
         </div>
       )}

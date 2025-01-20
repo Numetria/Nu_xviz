@@ -7,8 +7,7 @@ import { IoMoonOutline } from "react-icons/io5";
 import { useAppContext } from "../../../context/AppContext";
 import axios from 'axios';
 import LoadDataButton from "../../buttons/Button1"
-import FileUpload  from "../../fileIO/upload";
-
+import PlotDisplay from "../../plots/Plot_ts_test";
 
 
 function Highlights() {
@@ -47,67 +46,9 @@ function Highlights() {
         <div className={styles.row}>
           <div className={styles.box}>
             <h3>Xarray read</h3>
-            <div className={styles.bottom}>
-              <> <FileUpload/> </>
-              <p>
-                {formatTime(
-                  currentWeatherData?.sys.sunrise,
-                  currentWeatherData?.timezone,
-                )}
-              </p>
-            </div>
-          </div>
-          <div
-            className={`${styles.box} ${isGoldenTime ? styles.golden : ""}`} // Apply golden class if condition is met
-          >
-            <h3>Sunset</h3>
-            <div className={styles.bottom}>
-              <IoMoonOutline />
-              <p>
-                {formatTime(
-                  currentWeatherData?.sys.sunset,
-                  currentWeatherData?.timezone,
-                )}
-              </p>
-            </div>
-          </div>
-        </div>
-        <div className={styles.row}>
-          <div className={styles.box}>
-            <h3>Humidity</h3>
-            <div className={styles.bottom}>
-              <MdOutlineWaterDrop />
-              <p>
-                {currentWeatherData?.main.humidity}
-                <small>%</small>
-              </p>
-            </div>
-          </div>
-          <div className={styles.box}>
-            <h3>Pressure</h3>
-            <div className={styles.bottom}>
-              <FaWater />
-              <p>
-                {currentWeatherData?.main.pressure}
-                <small>hPa</small>
-              </p>
-            </div>
-          </div>
-          <div className={styles.box}>
-            <h3>Visibility</h3>
-            <div className={styles.bottom}>
-              <MdOutlineVisibility />
-              <p>
-                {currentWeatherData?.visibility / 1000}
-                <small>km</small>
-              </p>
-            </div>
-          </div>
-          <div className={styles.box}>
-            <h3>Feels Like</h3>
-            <div className={styles.bottom}>
-              <FaTemperatureLow />
-              <p>{currentWeatherData?.main.feels_like.toFixed(1)}°c</p>
+            <div>
+              <> <PlotDisplay/></>
+
             </div>
           </div>
         </div>

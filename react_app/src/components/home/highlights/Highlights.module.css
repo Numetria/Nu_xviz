@@ -78,3 +78,9 @@
     background-position: 0% 50%;
   }
 }
+
+.plot-container {
+  margin-bottom: 20px; /* Adjust the value as needed */
+  border-radius: 30px;
+}
+

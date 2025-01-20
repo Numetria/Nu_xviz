@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react"; // Import React and necessary hooks
 import styles from "./Now.module.css"; // Import CSS module for styling
 import { useAppContext } from "../../../context/AppContext"; // Import context for accessing app-wide state
-import { MdDateRange } from "react-icons/md"; // Import date range icon from react-icons
-import { FaLocationDot } from "react-icons/fa6"; // Import location icon from react-icons
+import FileUpload  from "../../fileIO/upload";
+
+
 
 function Now() {
   const { currentWeatherData } = useAppContext(); // Access current weather data from context
@@ -36,52 +37,12 @@ function Now() {
   return (
     <section className={styles.currentWeather} aria-label="current weather">
       <div className={styles.card}>
-        <h2 className={styles.title}>Now</h2>
+        <h2 className={styles.title}>Upload File path</h2>
         <div className={styles.wrapper}>
           <span className={styles}>
-            {Math.round(currentWeatherData?.main?.temp) || ""}°c{" "}
-            {/* Display current temperature */}
+            <FileUpload/>
           </span>
-          <img
-            src={`https://openweathermap.org/img/wn/${currentWeatherData?.weather[0].icon}@2x.png`}
-            alt="Weather icon"
-            className={styles.weatherIcon}
-            loading="lazy"
-          />
         </div>
-        <p className={styles.wState}>
-          {currentWeatherData?.weather[0].description}{" "}
-          {/* Display weather description */}
-        </p>
-        <ul className={styles.metaList}>
-          <li className={styles.metaItem}>
-            <MdDateRange /> {/* Date range icon */}
-            <div className={styles.clockContainer}>
-              <p className={styles.metaText}>
-                {adjustedTime.toLocaleTimeString("en-US", {
-                  hour: "2-digit",
-                  minute: "2-digit",
-                })}{" "}
-                {/* Display current time */}
-              </p>
-              <p className={styles.metaText}>
-                {adjustedTime.toLocaleDateString("en-US", {
-                  weekday: "long",
-                  month: "long",
-                  day: "numeric",
-                })}{" "}
-                {/* Display current date */}
-              </p>
-            </div>
-          </li>
-          <li className={styles.metaItem}>
-            <FaLocationDot /> {/* Location icon */}
-            <p className={styles.metaText}>{`${
-              currentWeatherData?.name || ""
-            }`}</p>{" "}
-            {/* Display location name */}
-          </li>
-        </ul>
       </div>
     </section>
   );
