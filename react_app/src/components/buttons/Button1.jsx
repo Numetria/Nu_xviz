@@ -6,7 +6,7 @@ const LoadDataButton = () => {
     const [error, setError] = useState(null);
 
     const loadData = () => {
-        axios.get('http://127.0.0.1:5000/data')  // Replace with your Flask server URL
+        axios.get('http://127.0.0.1:5000/upload')  // Replace with your Flask server URL
             .then(response => {
                 setData(response.data.slice(0, 5));  // Get the first 5 rows of the DataFrame
             })

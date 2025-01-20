@@ -1,27 +1,29 @@
 import React, { useState } from 'react';
 
 const FileUpload = () => {
-  const [file, setFile] = useState(null);
-  const [data, setData] = useState([]);
-  const [error, setError] = useState(null);
+  const [filePath, setFilePath] = useState('');
+  const [fileDetails, setFileDetails] = useState(null);  // To hold the file details
+  const [error, setError] = useState(null);  // To hold any errors
 
-  const handleFileChange = (event) => {
-    setFile(event.target.files[0]);
+  const handleInputChange = (event) => {
+    setFilePath(event.target.value);  // User inputs the path or filename
   };
 
   const handleUpload = async () => {
-    if (!file) {
-      alert("Please select a file first!");
+    if (!filePath) {
+      alert('Please provide a file path!');
       return;
     }
 
-    const formData = new FormData();
-    formData.append('file', file);
+    const config = { filepath: filePath };  // Send this path as config
 
     try {
-      const response = await fetch('http://127.0.0.1:5000/upload', {
+      const response = await fetch('http://127.0.0.1:8000/upload/', {
         method: 'POST',
-        body: formData,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(config),
       });
 
       if (!response.ok) {
@@ -29,30 +31,38 @@ const FileUpload = () => {
       }
 
       const result = await response.json();
-      setData(result);
-      setError(null);
+      setFileDetails(result);  // Store the file details from the backend
+      setError(null);  // Clear any previous errors
     } catch (err) {
-      setError(err.message);
+      setError(`Error: ${err.message}`);
+      setFileDetails(null);  // Clear the file details if error occurs
     }
   };
 
   return (
     <div>
-      <h1>Upload a File</h1>
-      <input type="file" onChange={handleFileChange} />
-      <button onClick={handleUpload}>Upload</button>
+      <h1>Upload File Path</h1>
+      <input
+        type="text"
+        placeholder="Enter file path or filename"
+        onChange={handleInputChange}
+      />
+      <button onClick={handleUpload} disabled={!filePath}>
+        Upload
+      </button>
 
+      {filePath && <p>File Path: {filePath}</p>}
+      
       {error && <p style={{ color: 'red' }}>{error}</p>}
 
-      {data.length > 0 && (
+      {fileDetails && (
         <div>
-          <h2>Data from Uploaded File:</h2>
+          <h2>File Details:</h2>
           <ul>
-            {data.map((row, index) => (
-              <li key={index}>
-                {Object.values(row).join(' - ')}
-              </li>
-            ))}
+            <li><strong>Filename:</strong> {fileDetails.filename}</li>
+            <li><strong>Time Range:</strong> {fileDetails.time_range}</li>
+            <li><strong>Coordinates:</strong> {fileDetails.coordinates.join(', ')}</li>
+            <li><strong>Variables:</strong> {fileDetails.variables.join(', ')}</li>
           </ul>
         </div>
       )}
