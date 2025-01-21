@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 
 const FileUpload = () => {
   const [filePath, setFilePath] = useState('');
-  const [fileDetails, setFileDetails] = useState(null);  // To hold the file details
-  const [error, setError] = useState(null);  // To hold any errors
+  const [fileDetails, setFileDetails] = useState(null);
+  const [error, setError] = useState(null);
 
   const handleInputChange = (event) => {
-    setFilePath(event.target.value);  // User inputs the path or filename
+    setFilePath(event.target.value);
   };
 
   const handleUpload = async () => {
@@ -15,15 +15,13 @@ const FileUpload = () => {
       return;
     }
 
-    const config = { filepath: filePath };  // Send this path as config
-
     try {
       const response = await fetch('http://127.0.0.1:8000/upload/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(config),
+        body: JSON.stringify({ filepath: filePath }),
       });
 
       if (!response.ok) {
@@ -31,32 +29,32 @@ const FileUpload = () => {
       }
 
       const result = await response.json();
-      setFileDetails(result);  // Store the file details from the backend
-      setError(null);  // Clear any previous errors
+      setFileDetails(result);
+      setError(null);
     } catch (err) {
       setError(`Error: ${err.message}`);
-      setFileDetails(null);  // Clear the file details if error occurs
+      setFileDetails(null);
     }
   };
 
   return (
     <div>
+      <h2>Upload NetCDF File</h2>
       <input
         type="text"
-        placeholder="Enter file path or filename"
+        placeholder="Enter file path"
+        value={filePath}
         onChange={handleInputChange}
       />
       <button onClick={handleUpload} disabled={!filePath}>
         Upload
       </button>
 
-      {filePath && <p>File Path: {filePath}</p>}
-      
       {error && <p style={{ color: 'red' }}>{error}</p>}
 
       {fileDetails && (
         <div>
-          <h2>File Details:</h2>
+          <h3>File Details</h3>
           <ul>
             <li><strong>Filename:</strong> {fileDetails.filename}</li>
             <li><strong>Time Range:</strong> {fileDetails.time_range}</li>

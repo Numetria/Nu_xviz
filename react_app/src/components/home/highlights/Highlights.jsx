@@ -8,7 +8,7 @@ import { useAppContext } from "../../../context/AppContext";
 import axios from 'axios';
 import LoadDataButton from "../../buttons/Button1"
 import PlotDisplay from "../../plots/Plot_ts_test";
-
+import PlotDisplaySPATIAL from "../../plots/spatial_test";
 
 function Highlights() {
   const { currentWeatherData } = useAppContext();
@@ -47,7 +47,7 @@ function Highlights() {
           <div className={styles.box}>
             <h3>Xarray read</h3>
             <div>
-              <> <PlotDisplay/></>
+              <> <PlotDisplaySPATIAL/></>
 
             </div>
           </div>
