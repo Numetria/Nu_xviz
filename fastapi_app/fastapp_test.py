@@ -10,7 +10,7 @@ os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
 from check_coords_attrs import check_all
 from plots.time_series import ts_plot_init
-from plots.spatial_plot import get_plot
+from plots.spatial_plot import plot_test_spatial
 
 app = FastAPI()
 
@@ -137,7 +137,7 @@ async def spatial_plot():
         raise HTTPException(status_code=400, detail="No active file set")
     
     try:
-        plot_json = get_plot()
+        plot_json = plot_test_spatial(loaded_dataset[active_file]).plot_gv()
         return plot_json
     
     except Exception as e:

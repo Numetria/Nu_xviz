@@ -1,28 +1,25 @@
-import json
-from bokeh.plotting import figure
-from bokeh.transform import linear_cmap
-from bokeh.models import ColumnDataSource
-from bokeh.embed import json_item
-from bokeh.util.hex import hexbin
-from numpy.random import standard_normal
-from flask import jsonify
+import geoviews as gv
+import geoviews.feature as gf
+import xarray as xr
+from cartopy import crs
 
 
+class plot_test_spatial:
+
+    def __init__(self, ds):
+        self.ds = ds
+
+    
+    def plot_gv(self):
+        indata = self.ds
+        dset_surface = indata.isel(level=-1).isel(time=range(0,10))
+
+        gv.extension('bokeh')
 
 
-def get_plot():
-    # Generate data
-    x = standard_normal(50000)
-    y = standard_normal(50000)
-    bins = hexbin(x, y, 0.1)
+        dataset = gv.Dataset(dset_surface, ['longitude', 'latitude', 'time'], 't', crs=crs.PlateCarree())
 
-    # Create Bokeh plot
-    p = figure(tools="", match_aspect=True, background_fill_color='#440154')
-    p.grid.visible = False
 
-    p.hex_tile(q="q", r="r", size=0.1, line_color=None, source=bins,
-               fill_color=linear_cmap('counts', 'Viridis256', 0, max(bins.counts)))
+        spa_ds = dataset.data.to_dict()
 
-    # Convert to JSON and return
-    plot_json = json_item(p, "my_plot")
-    return jsonify(plot_json)
+        return spa_ds

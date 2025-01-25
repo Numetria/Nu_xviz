@@ -28,6 +28,18 @@ const PlotDisplaySPATIAL = () => {
     }
   };
 
+  // Function to embed the Bokeh plot once plotData is available
+  const renderBokehPlot = (plotJson) => {
+    if (window.Bokeh && plotJson) {
+      Bokeh.embed.embed_item(plotJson, "bokeh-plot");
+    }
+  };
+
+  // Trigger plot rendering once plotData is fetched
+  if (plotData && typeof window !== "undefined") {
+    renderBokehPlot(plotData);
+  }
+
   return (
     <div>
       <h1>Display Bokeh Plot</h1>
@@ -35,18 +47,7 @@ const PlotDisplaySPATIAL = () => {
 
       {error && <p style={{ color: "red" }}>{error}</p>}
 
-      {plotData && (
-        <div>
-          <script
-            src="https://cdn.bokeh.org/bokeh/release/bokeh-3.3.0.min.js"
-          ></script>
-          <div id="bokeh-plot"></div>
-          <script>
-            {plotData &&
-              `Bokeh.embed.embed_item(${JSON.stringify(plotData)}, "bokeh-plot");`}
-          </script>
-        </div>
-      )}
+      <div id="bokeh-plot"></div>
     </div>
   );
 };
